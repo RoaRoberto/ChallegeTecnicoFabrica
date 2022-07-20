@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { AuthorizeGuard } from './Authorize/authorize.guard';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'Home',
     component: HomeComponent
   },
   {
     path: 'Users',
-    component: UserComponent
+    component: UserComponent,
+    canActivate: [AuthorizeGuard]
   },
   {
-    path: 'Auth',
+    path: '',
     component: AuthComponent
   }
 ];

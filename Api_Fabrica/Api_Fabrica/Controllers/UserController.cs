@@ -59,7 +59,6 @@ namespace Api_Fabrica.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public ObjectResult Post([FromBody] UserEntity entity)
         {
             try

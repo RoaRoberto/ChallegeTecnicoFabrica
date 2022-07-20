@@ -8,11 +8,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
 import { UserService } from './services/User.service';
 import { AuthService } from './services/Auth.service';
 import { AuthComponent } from './auth/auth.component';
+import { AuthorizeInterceptor } from './Authorize/authorize.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,12 @@ import { AuthComponent } from './auth/auth.component';
     FormsModule,
     NgbModule,
     HttpClientModule,
-
   ],
   providers: [
-
     UserService,
     AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

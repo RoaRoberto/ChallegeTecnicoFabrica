@@ -43,7 +43,8 @@ ALTER TABLE [Order] ADD FOREIGN KEY (UserId) REFERENCES [user](id);
 ALTER TABLE [Order] ADD FOREIGN KEY (ProductId) REFERENCES Product(id);
 
 
-
+go
+insert into [user] values ('Admin','$2a$11$i5TKETTflHmXTThKCV8MOeCaJAJ0EhkCvo47XxmssxqYWqY5mWZGS','Roberto','contrerasroberto621@gmail.com')
 
 select * from [User]
 select * from Product
