@@ -26,18 +26,18 @@ namespace Api_Fabrica.Services.implemaentation
 
         public UserEntity AddUser(UserEntity userItem)
         {
-            userItem.Password= BCrypt.Net.BCrypt.HashPassword(userItem.Password);
-            var x = _myDbContext.Usuarios.Add(userItem);
+            userItem.Password = BCrypt.Net.BCrypt.HashPassword(userItem.Password);
+            var x = _myDbContext.Users.Add(userItem);
             _myDbContext.SaveChanges();
             return userItem;
         }
 
         public bool DeleteUser(int id)
         {
-            var entity = _myDbContext.Usuarios.Find(id);
+            var entity = _myDbContext.Users.Find(id);
             if (entity != null)
             {
-                var x = _myDbContext.Usuarios.Remove(entity);
+                var x = _myDbContext.Users.Remove(entity);
                 _myDbContext.SaveChanges();
                 return true;
             }
@@ -46,20 +46,20 @@ namespace Api_Fabrica.Services.implemaentation
 
         public UserEntity GetUserByiD(int id)
         {
-            var entity = _myDbContext.Usuarios.Find(id);
+            var entity = _myDbContext.Users.Find(id);
             return entity;
 
         }
 
         public List<UserEntity> GetUsers()
         {
-            var all = _myDbContext.Usuarios.ToList();
+            var all = _myDbContext.Users.ToList();
             return all;
         }
 
         public bool Login(AuthDTO authDTO)
         {
-            var entity = _myDbContext.Usuarios.Where(u=>u.Login.Equals(authDTO.UserName) 
+            var entity = _myDbContext.Users.Where(u => u.Login.Equals(authDTO.UserName)
              ).FirstOrDefault();
 
             if (entity == null || !BCrypt.Net.BCrypt.Verify(authDTO.Password, entity.Password))
@@ -69,20 +69,21 @@ namespace Api_Fabrica.Services.implemaentation
             return true;
 
         }
-        
+
 
         public UserEntity UpdateUser(int id, UserEntity userItem)
         {
-            var original = _myDbContext.Usuarios.Find(id);
-            userItem.Password = BCrypt.Net.BCrypt.HashPassword(userItem.Password);
+            var original = _myDbContext.Users.Find(id);
 
             if (original != null)
             {
+                userItem.Password = BCrypt.Net.BCrypt.HashPassword(userItem.Password);
                 _myDbContext.Entry(original).CurrentValues.SetValues(userItem);
                 _myDbContext.SaveChanges();
+                return userItem;
             }
-            return userItem;
-        
-    }
+            return null;
+
+        }
     }
 }

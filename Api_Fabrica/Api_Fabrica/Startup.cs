@@ -47,6 +47,8 @@ namespace Api_Fabrica
             services.AddDbContext<MyDbContext>(item =>
             item.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrdersService>();
 
         }
 

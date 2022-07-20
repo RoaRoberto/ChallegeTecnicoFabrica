@@ -19,8 +19,9 @@ namespace Api_Fabrica.Context
         }
 
         // relacion de entidades
-        public DbSet<UserEntity> Usuarios { get; set; }
-       
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<ProductEntity> Products { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
 
         public static readonly ILoggerFactory ConsoleLoggerFactory
            = LoggerFactory.Create(builder =>
