@@ -1,0 +1,77 @@
+<div class="container">
+  <div style="height: 90px;"></div>
+  <div class="row">
+    <ngb-toast *ngIf="show" [header]="message.title" [autohide]="false" >
+      {{message.body}}
+    </ngb-toast>
+  </div>
+  <a routerLink="/Auth">   Salir  </a>
+
+  <div class="reglist" *ngIf="Users">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Login</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let User of Users; let i = index">
+          <th>{{ User.id }}</th>
+          <td>{{ User.login }}</td>
+          <td>{{ User.name}}</td>
+          <td>{{ User.email }}</td>
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(User.id)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(User.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+    </div>
+  </div>
+  <br>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="login-input" class="col-2 col-form-label">Login</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.login" name="login">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="email-input" class="col-2 col-form-label">Email</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.email" name="email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name-input" class="col-2 col-form-label">Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.name" name="name">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="name-input" class="col-2 col-form-label">Password</label>
+        <div class="col-10">
+          <input class="form-control" type="password" [(ngModel)]="regModel.password" name="password">
+        </div>
+      </div>
+
+
+
+      <button type="submit" class="btn btn-success">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>
+
