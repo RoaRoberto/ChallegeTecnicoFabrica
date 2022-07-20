@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api_Fabrica.Authorization;
 using Api_Fabrica.Model;
 using Api_Fabrica.Services.interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace Api_Fabrica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
 
@@ -57,6 +59,7 @@ namespace Api_Fabrica.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ObjectResult Post([FromBody] UserEntity entity)
         {
             try

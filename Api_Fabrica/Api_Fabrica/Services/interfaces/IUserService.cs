@@ -18,7 +18,7 @@ namespace Api_Fabrica.Services.interfaces
         public UserEntity UpdateUser(int id, UserEntity UserItem);
 
         public Boolean DeleteUser(int id);
-        public Boolean Login(AuthDTO authDTO);
+        public AuthenticateResponse Login(AuthDTO authDTO);
 
 
 

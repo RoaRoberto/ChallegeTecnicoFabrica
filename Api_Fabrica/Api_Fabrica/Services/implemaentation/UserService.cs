@@ -10,23 +10,33 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using BCrypt.Net;
-
-
+using Api_Fabrica.Authorization;
 
 namespace Api_Fabrica.Services.implemaentation
 {
     public class UserService : IUserService
     {
         private readonly MyDbContext _myDbContext;
+        private IJwtUtils _jwtUtils;
 
-        public UserService(MyDbContext myDbContext, IConfiguration configuration)
+        public UserService(MyDbContext myDbContext, IConfiguration configuration, IJwtUtils jwtUtils)
         {
             this._myDbContext = myDbContext;
+            this._jwtUtils = jwtUtils;
         }
 
         public UserEntity AddUser(UserEntity userItem)
         {
             userItem.Password = BCrypt.Net.BCrypt.HashPassword(userItem.Password);
+
+            var entity = _myDbContext.Users.Where(u => u.Login.Equals(userItem.Login)
+           ).FirstOrDefault();
+
+
+            if (entity!=null)
+                throw new Exception("Username '" + entity.Login + "' is already taken");
+
+
             var x = _myDbContext.Users.Add(userItem);
             _myDbContext.SaveChanges();
             return userItem;
@@ -57,7 +67,7 @@ namespace Api_Fabrica.Services.implemaentation
             return all;
         }
 
-        public bool Login(AuthDTO authDTO)
+        public AuthenticateResponse Login(AuthDTO authDTO)
         {
             var entity = _myDbContext.Users.Where(u => u.Login.Equals(authDTO.UserName)
              ).FirstOrDefault();
@@ -65,8 +75,12 @@ namespace Api_Fabrica.Services.implemaentation
             if (entity == null || !BCrypt.Net.BCrypt.Verify(authDTO.Password, entity.Password))
                 throw new Exception("Username or password is incorrect");
 
-
-            return true;
+            AuthenticateResponse user = new AuthenticateResponse() {
+                UserName = entity.Name,
+                Id = entity.Id,
+                Token = _jwtUtils.GenerateToken(entity)
+            };
+            return user;
 
         }
 

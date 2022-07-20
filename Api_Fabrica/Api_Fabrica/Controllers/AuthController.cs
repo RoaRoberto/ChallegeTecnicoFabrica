@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api_Fabrica.Authorization;
 using Api_Fabrica.Dto;
 using Api_Fabrica.Model;
 using Api_Fabrica.Services.interfaces;
@@ -13,6 +14,7 @@ namespace Api_Fabrica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
 
@@ -29,6 +31,7 @@ namespace Api_Fabrica.Controllers
         
 
         [HttpPost]
+        [AllowAnonymous]
         public ObjectResult Login([FromBody] AuthDTO authDTO)
         {
             try
