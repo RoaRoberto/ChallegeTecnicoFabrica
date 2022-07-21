@@ -60,6 +60,10 @@ para correr el web api , ejecutar las siguientes sentencias en una terminal.
 	dotnet run
 ```
 
+Nota: El proyecto cuenta con la integracion de Swagger por lo que se puede realizar pruebas en la url  ![https://localhost:5001/swagger/index.html](https://localhost:5001/swagger/index.html)
+
+
+
 ## Desplegar el Front Angular
 
 Para desplegar el proyecto front ejecutar las siguientes sentencia en una terminal ubicada en la raiz del proyecto
