@@ -15,11 +15,7 @@ namespace Api_Fabrica.Model
         [Key]
         public int Id { get; set; }
 
-        [Column("UserId")]
-        public int UserId { get; set; }
-
-        [Column("ProductId")]
-        public int ProductId { get; set; }
+       
 
         [Column("Unitvalue")]
         public Decimal Unitvalue { get; set; }
@@ -36,6 +32,20 @@ namespace Api_Fabrica.Model
         [Column("Total")]
         public Decimal Total { get; set; }
 
+
+
+     
+
+
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public UserEntity User { get; set; }
+
+
+
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }
+        public ProductEntity Product { get; set; }
 
 
 

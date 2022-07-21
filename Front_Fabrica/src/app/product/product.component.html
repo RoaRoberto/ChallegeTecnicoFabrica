@@ -1,0 +1,59 @@
+<div class="container">
+  <div style="height: 90px;"></div>
+  <div class="row">
+    <ngb-toast *ngIf="show" [header]="message.title" [autohide]="false" >
+      {{message.body}}
+    </ngb-toast>
+  </div>
+
+  <div class="reglist" *ngIf="Products">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Value</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Product of Products; let i = index">
+          <th>{{ Product.id }}</th>
+          <td>{{ Product.description }}</td>
+          <td>{{ Product.value}}</td>
+          <td>
+            <button type="button" class="btn btn-info" (click)="onEdit(Product.id)">Edit</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="onDelete(Product.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+    </div>
+  </div>
+  <br>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="description-input" class="col-2 col-form-label">Description</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="regModel.description" name="description">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="value-input" class="col-2 col-form-label">value</label>
+        <div class="col-10">
+          <input class="form-control" type="number" [(ngModel)]="regModel.value" name="value">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>
+

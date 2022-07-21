@@ -7,13 +7,13 @@
   
 </p>
 
-> Challenge Tecnico Fabrica
+> Challenge Tecnico 
 
 ![probando el proyecto](documentacion/img/prueba.gif)
 
 ### 🏠 Descripción
 
-Web Api que permite administrar una Fabrica
+Web Api que permite administrar Usuarios
 
 * DotnetCore 3.1
 * SqlServer Entity Framework core 5.0.7
@@ -37,7 +37,7 @@ FrontEnd Angular que permite interactuar con el Web Api y con el Usuario Final
  
 Modificar el archivo appsettings.json
  
-1. Cambiar los valores de la cadena de conexion a la base de datos 
+1. Cambiar los valores de la cadena de conexion a la base de datos oracle
  
  ```sh
 	 "ConnectionStrings": {
@@ -70,34 +70,12 @@ Para desplegar el proyecto front ejecutar las siguientes sentencia en una termin
 ```
 
 ## Rutas Web Api
-El proyecto web api se despliega en localhost por el puerto 5001
+El proyecto web api se despliega en localhost por el puerto 44336
 y este cuenta con los siguientes endpoints:
 
 Users
 ```sh
- Url Base https://localhost:5001/api/user
- 
- * Post  
- * Put
- * Delete
- * Get
- * GetById
-```
-
-Products
-```sh
- Url Base https://localhost:5001/api/product
- 
- * Post  
- * Put
- * Delete
- * Get
- * GetById
-```
-
-Orders
-```sh
- Url Base https://localhost:5001/api/order
+ Url Base https://localhost:44336/api/user
  
  * Post  
  * Put
@@ -115,7 +93,7 @@ Auth
 ```
 
 
-
+nota: en la carpeta de documentacion se encuentra el archivo userCollection.postman_collection.json, que puede ser importado desde Postman para hacer las pruebas de los endpoints.
 
 
 ## Rutas Front End

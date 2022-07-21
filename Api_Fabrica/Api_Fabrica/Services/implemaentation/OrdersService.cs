@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Api_Fabrica.Context;
 using Api_Fabrica.Services.interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api_Fabrica.Services.implemaentation
 {
@@ -31,7 +32,7 @@ namespace Api_Fabrica.Services.implemaentation
 
         public bool DeleteOrder(int id)
         {
-            var entity = _myDbContext.Orders.Find(id);
+            var entity = GetOrderByiD(id);
             if (entity != null)
             {
                 var x = _myDbContext.Orders.Remove(entity);
@@ -43,19 +44,27 @@ namespace Api_Fabrica.Services.implemaentation
 
         public OrderEntity GetOrderByiD(int id)
         {
-            var entity = _myDbContext.Orders.Find(id);
+            var entity = _myDbContext.Orders
+                .Where(x => x.Id == id)
+                .Include(x => x.Product)
+                .Include(x => x.User)
+                .FirstOrDefault();
+
             return entity;
         }
 
         public List<OrderEntity> GetOrders()
         {
-            var all = _myDbContext.Orders.ToList();
+            var all = _myDbContext.Orders
+                .Include(x => x.Product)
+                .Include(x => x.User)
+                .ToList();
             return all;
         }
 
         public OrderEntity UpdateOrder(int id, OrderEntity orderItem)
         {
-            var resultado = _myDbContext.Orders.Find(id);
+            var resultado = GetOrderByiD(id);
 
             if (resultado != null)
             {

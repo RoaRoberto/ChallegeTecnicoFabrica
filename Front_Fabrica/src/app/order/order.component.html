@@ -1,0 +1,178 @@
+<div class="container">
+  <div style="height: 90px"></div>
+  <div class="row">
+    <ngb-toast *ngIf="show" [header]="message.title" [autohide]="false">
+      {{ message.body }}
+    </ngb-toast>
+  </div>
+
+  <div class="reglist" *ngIf="Orders">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Product</th>
+          <th>Unit Value</th>
+          <th>Amount</th>
+          <th>Subtotal</th>
+          <th>Iva</th>
+          <th>Total</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Order of Orders; let i = index">
+          <th>{{ Order.id }}</th>
+          <td>{{ Order.user.name }}</td>
+          <td>{{ Order.product.description }}</td>
+          <td>{{ Order.unitvalue }}</td>
+          <td>{{ Order.amount }}</td>
+          <td>{{ Order.subtotal }}</td>
+          <td>{{ Order.iva }}</td>
+          <td>{{ Order.total }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-info"
+              (click)="onEdit(Order.id)"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onDelete(Order.id)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">
+        New
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="userId-input" class="col-2 col-form-label">User</label>
+        <div class="col-10">
+          <select
+            name="userId"
+            class="form-control"
+            [(ngModel)]="userSelected"
+            (ngModelChange)="onChangePUsert($event)"
+          >
+            <option [value]="toStr(userItem)" *ngFor="let userItem of users">
+              {{ userItem.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="productId-input" class="col-2 col-form-label"
+          >Product</label
+        >
+        <div class="col-10">
+          <select
+            name="productId"
+            class="form-control"
+            [(ngModel)]="productSelected"
+            (ngModelChange)="onChangeProduct($event)"
+          >
+            <option
+              [value]="toStr(productItem)"
+              *ngFor="let productItem of products"
+            >
+              {{ productItem.description }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="unitvalue-input" class="col-2 col-form-label"
+          >Unit Value</label
+        >
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="number"
+            [(ngModel)]="regModel.unitvalue"
+            name="unitvalue"
+            readonly
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="amount-input" class="col-2 col-form-label">Amount</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="number"
+            [(ngModel)]="regModel.amount"
+            (ngModelChange)="amountchange($event)"
+            name="amount"
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="subtotal-input" class="col-2 col-form-label"
+          >Subtotal</label
+        >
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="number"
+            [(ngModel)]="regModel.subtotal"
+            name="subtotal"
+            readonly
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="iva-input" class="col-2 col-form-label">Iva</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="number"
+            [(ngModel)]="regModel.iva"
+            name="iva"
+            readonly
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="total-input" class="col-2 col-form-label">Total</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="number"
+            [(ngModel)]="regModel.total"
+            name="total"
+            readonly
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success">{{ submitType }}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">
+        Cancel
+      </button>
+
+    </form>
+  </div>
+</div>
